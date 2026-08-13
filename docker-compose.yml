@@ -1,0 +1,22 @@
+services:
+  middleware:
+    build: .
+    image: chatwoot-dify-middleware:latest
+    container_name: chatwoot-dify-middleware
+    restart: unless-stopped
+    env_file:
+      - .env
+    ports:
+      - "3000:3000"
+    volumes:
+      # Persist the JSON job store across restarts / redeploys.
+      - middleware-data:/app/data
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://localhost:3000/health').then(r=>{if(!r.ok)process.exit(1)}).catch(()=>process.exit(1))"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+
+volumes:
+  middleware-data:
