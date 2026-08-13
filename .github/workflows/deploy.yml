@@ -20,6 +20,7 @@ jobs:
           host: ${{ secrets.SERVER_HOST }}
           username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.SERVER_SSH_KEY }}
+          port: 26266
           source: "."
           target: "/var/www/middleware.ostenex.com"
           overwrite: true
@@ -30,6 +31,7 @@ jobs:
           host: ${{ secrets.SERVER_HOST }}
           username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.SERVER_SSH_KEY }}
+          port: 26266
           script: |
             cd /var/www/middleware.ostenex.com
             
