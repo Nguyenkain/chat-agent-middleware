@@ -53,7 +53,7 @@ test("insertIfAbsent is idempotent per event_id", () => {
     accountId: "1",
     conversationId: "100",
     messageId: "200",
-    payload: { content: "/draft-email" },
+    payload: { content: "/email" },
   };
 
   const first = insertIfAbsent(params);

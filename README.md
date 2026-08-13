@@ -1,6 +1,6 @@
 # Chatwoot ↔ Dify Middleware
 
-Middleware kết nối Chatwoot và Dify.ai: khi agent viết private note `/draft-email` trong một conversation, middleware lấy lịch sử hội thoại, gọi Dify để tạo draft email tiếng Anh, và đăng draft đó lại dưới dạng private note để agent xem xét trước khi gửi thủ công.
+Middleware kết nối Chatwoot và Dify.ai: khi agent viết private note `/email` trong một conversation, middleware lấy lịch sử hội thoại, gọi Dify để tạo draft email tiếng Anh, và đăng draft đó lại dưới dạng private note để agent xem xét trước khi gửi thủ công.
 
 Xem chi tiết kiến trúc, flow, và checklist triển khai trong [`PLAN.md`](./PLAN.md).
 
@@ -87,13 +87,13 @@ docker run -d --name chatwoot-dify-middleware \
 Trong Chatwoot, agent viết private note:
 
 ```
-/draft-email
+/email
 ```
 
 hoặc kèm gợi ý cụ thể:
 
 ```
-/draft-email Please apologize for the delay and confirm refund timeline.
+/email Please apologize for the delay and confirm refund timeline.
 ```
 
 Vài giây sau, middleware sẽ đăng một private note mới chứa draft email tiếng Anh, kết thúc bằng chữ ký "Ostenex Support". Agent xem xét, chỉnh sửa nếu cần, rồi gửi email thật thủ công.
@@ -102,4 +102,4 @@ Vài giây sau, middleware sẽ đăng một private note mới chứa draft ema
 
 - Không tự động gửi email — chỉ tạo draft.
 - Job store dạng file JSON (`data/jobs.json`), phù hợp 1 instance chạy tại một thời điểm. Chuyển PostgreSQL nếu scale nhiều worker song song.
-- Không giữ context hội thoại Dify qua nhiều lần gọi — mỗi lần `/draft-email` là một request độc lập với context hiện tại của conversation.
+- Không giữ context hội thoại Dify qua nhiều lần gọi — mỗi lần `/email` là một request độc lập với context hiện tại của conversation.

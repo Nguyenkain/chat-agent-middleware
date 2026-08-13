@@ -6,7 +6,7 @@ import { insertIfAbsent } from "../store/jobs.js";
 
 export const webhookRouter = Router();
 
-const TRIGGER = "/draft-email";
+const TRIGGER = "/email";
 
 webhookRouter.post("/chatwoot", (req: Request, res: Response) => {
   if (!verifySignature(req, config.chatwoot.webhookSecret)) {

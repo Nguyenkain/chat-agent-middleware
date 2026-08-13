@@ -26,7 +26,7 @@ async function tick(): Promise<void> {
       await createPrivateNote(
         job.account_id,
         job.conversation_id,
-        `⚠️ Could not generate email draft. Error: ${message}\nPlease draft manually or retry with /draft-email`
+        `⚠️ Could not generate email draft. Error: ${message}\nPlease draft manually or retry with /email`
       ).catch((e) => console.error("[Worker] Failed to post error note:", e));
     }
   }

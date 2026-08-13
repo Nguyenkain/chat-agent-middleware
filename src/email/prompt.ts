@@ -31,9 +31,9 @@ export interface PromptInputs {
   draftRequest: string;
 }
 
-/** Extract the text after "/draft-email" as the agent's draft request */
+/** Extract the text after "/email" as the agent's draft request */
 export function extractDraftRequest(content: string): string {
-  return content.replace(/^\/draft-email\s*/i, "").trim();
+  return content.replace(/^\/email\s*/i, "").trim();
 }
 
 export function buildPromptInputs(

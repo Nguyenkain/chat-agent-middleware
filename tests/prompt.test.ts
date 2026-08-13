@@ -6,17 +6,17 @@ import type { ChatwootConversation } from "../src/clients/chatwoot.js";
 
 test("extractDraftRequest strips command prefix", () => {
   assert.equal(
-    extractDraftRequest("/draft-email Please apologize for the delay"),
+    extractDraftRequest("/email Please apologize for the delay"),
     "Please apologize for the delay"
   );
 });
 
 test("extractDraftRequest handles bare command", () => {
-  assert.equal(extractDraftRequest("/draft-email"), "");
+  assert.equal(extractDraftRequest("/email"), "");
 });
 
 test("extractDraftRequest is case-insensitive", () => {
-  assert.equal(extractDraftRequest("/Draft-Email hello"), "hello");
+  assert.equal(extractDraftRequest("/Email hello"), "hello");
 });
 
 test("buildPromptInputs fills customer fields from contact", () => {
@@ -33,7 +33,7 @@ test("buildPromptInputs fills customer fields from contact", () => {
     ],
   };
 
-  const inputs = buildPromptInputs(conv, "/draft-email confirm refund");
+  const inputs = buildPromptInputs(conv, "/email confirm refund");
 
   assert.equal(inputs.customerName, "John Smith");
   assert.equal(inputs.customerEmail, "john@example.com");
@@ -44,7 +44,7 @@ test("buildPromptInputs fills customer fields from contact", () => {
 
 test("buildPromptInputs handles missing contact gracefully", () => {
   const conv: ChatwootConversation = { contact: null, messages: [] };
-  const inputs = buildPromptInputs(conv, "/draft-email");
+  const inputs = buildPromptInputs(conv, "/email");
 
   assert.equal(inputs.customerName, "");
   assert.equal(inputs.customerEmail, "");
@@ -61,7 +61,7 @@ test("buildPromptInputs omits older messages beyond limit", () => {
   }));
   const conv: ChatwootConversation = { contact: null, messages };
 
-  const inputs = buildPromptInputs(conv, "/draft-email");
+  const inputs = buildPromptInputs(conv, "/email");
 
   assert.match(inputs.conversationContext, /omitted/i);
   assert.doesNotMatch(inputs.conversationContext, /message 0\n/);
