@@ -25,6 +25,11 @@ export async function getConversationMessages(
   conversationId: string
 ): Promise<ChatwootConversation> {
   const url = `${config.chatwoot.baseUrl}/api/v1/accounts/${accountId}/conversations/${conversationId}/messages`;
+  const token = config.chatwoot.apiToken || "";
+  const maskedToken = token.substring(0, 4) + "..." + token.substring(token.length - 4);
+
+  console.log(`[Chatwoot Debug] GET ${url}`);
+  console.log(`[Chatwoot Debug] Token used: ${maskedToken}`);
 
   const res = await fetch(url, {
     headers: headers(),
@@ -32,6 +37,8 @@ export async function getConversationMessages(
   });
 
   if (!res.ok) {
+    const text = await res.text().catch(() => "");
+    console.error(`[Chatwoot Debug] getMessages Failed - Status: ${res.status}, Body: ${text}`);
     throw new Error(`Chatwoot getMessages ${res.status}: ${res.statusText}`);
   }
 
