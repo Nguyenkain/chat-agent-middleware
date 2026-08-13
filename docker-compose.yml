@@ -7,7 +7,7 @@ services:
     env_file:
       - .env
     ports:
-      - "3000:3000"
+      - "3008:3000"
     volumes:
       # Persist the JSON job store across restarts / redeploys.
       - middleware-data:/app/data
